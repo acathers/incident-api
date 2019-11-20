@@ -38,6 +38,12 @@ public class IncidentController {
     return incident;
   }
 
+  @GetMapping("/incidents/address/{address}")
+  public List<Incident> getIncidentsByAddress(@PathVariable(value = "address") String addressString) throws IncidentNotFound{
+    return incidentRepository.findByAddressContaining(addressString).orElseThrow(() -> new IncidentNotFound(addressString));
+  }
+
+
   /**
    * Create Incident incident.
    *
